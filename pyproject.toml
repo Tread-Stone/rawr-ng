@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rawr-ng"
+authors = [
+    {name = "Tread-Stone", email = "hdennis4@gmail.com"}
+]
+description = ""
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "__version__"}
+
+[tool.pytest.ini_options]
+addopts = [
+  "--import-mode=importlib",
+]
+testpaths = ["tests"]
+pythonpath = "src"
+
+[tool.black]
+line-length = 120
+target-versions = ["py312"]
+
+[tool.coverage.run]
+command_line = "-m pytest"
+source = "src"
+
+[tool.coverage.report]
+precision = 4
+fail_under = 100
+sort = "-cover"
+include_namespace_packages = true
+omit = [
+  "*/tests/*"
+]
+
+[tool.coverage.html]
+title = "rawr-ng Coverage Report"
+
