@@ -9,7 +9,12 @@ fi
 
 clear
 # The RAWR banner - sans Dinosaur :\
-echo -e "\n\n \`.////.                  .     -+/s.\n s/\`  \`o-   o+\`    -      s.  \`o:  o-\n//   .o\`  \`s/o\`   o.  \`  +:  /+...o/\n \`s\`:+/\`   :o /o-\` :+ .s+\`:+   -/s+/+\n :s:://.  o/:--s-  o.o--o-s   .o. .s\n \`s\`  \`-+ +    \`/: .ss  \`oy\` .o\`  \`s\n  o.     \`          \`\`    .  :-    \`\n\n\tInstallation Script\n\n"
+
+echo -e "_________    _____  __      ____________           _______    ________"
+echo -e "\______   \  /  _  \/  \    /  \______   \          \      \  /  _____/"
+echo -e " |       _/ /  /_\  \   \/\/   /|       _/  ______  /   |   \/   \  ___ "
+echo -e " |    |   \/    |    \        / |    |   \ /_____/ /    |    \    \_\  \\"
+echo -e " |____|_  /\____|__  /\__/\  /  |____|_  /         \____|__  /\______  /"
 
 if [ `id -u` != 0 ]; then
         echo -e '  [x] In order to install deps, this script must be run as root.\n'
@@ -39,14 +44,14 @@ case `cat /etc/redhat-release 2>/dev/null || cat /etc/issue` in
 
     *"Red Hat"* | *"CentOS"* )
         echo -e '\n   [>] Installing RHEL / CentOS Deps\n'
-           
+
         epel='y'
-        if [[ $1 != 'y' ]]; then    
+        if [[ $1 != 'y' ]]; then
             read -p '[?] Install and Enable EPEL Repository? [Required]  (Y/n): ' epel
 
         fi
 
-        if [[ "${epel}" != 'n' ]]; then                    
+        if [[ "${epel}" != 'n' ]]; then
             ver=`sed 's/.*release \(.*\).[0-9] .*/\1/' /etc/redhat-release | cut -d'.' -f1`
             rpm -Uvh http://mirrors.rit.edu/fedora/epel//epel-release-latest-$ver.noarch.rpm
 
@@ -61,7 +66,7 @@ case `cat /etc/redhat-release 2>/dev/null || cat /etc/issue` in
         curl "https://bootstrap.pypa.io/get-pip.py" | python
         pip install python_qt_binding XlsxWriter rdpy
 
-        wd=`pwd`                
+        wd=`pwd`
         cd /tmp
         curl https://pypi.python.org/packages/source/p/pygraphviz/pygraphviz-1.3rc2.tar.gz > pgv.tar.gz
         tar -zxvf pgv.tar.gz
@@ -82,7 +87,7 @@ case `cat /etc/redhat-release 2>/dev/null || cat /etc/issue` in
         yum install nmap cmake PyQt4 PyQt4-webkit python-psutil python-imaging python-pygraphviz $y
         pip install python_qt_binding XlsxWriter rdpy ;;
 
-    * ) 
+    * )
         echo -e "\n   [x] This OS isn't supported by the install script as of yet."
         echo -e "\n         Please let al14s@pdrcorps.com (Twitter - @al14s) know."
         exit 1 ;;
