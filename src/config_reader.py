@@ -1,6 +1,6 @@
 from yaml import safe_load as yaml_load
 from pathlib import Path
-from typing import TypedDict, Optional, Sequence
+from typing import TypedDict, Sequence, Dict
 from enum import Enum, Flag, auto as enum_auto
 
 
@@ -30,7 +30,7 @@ class HttpVersion(Enum):
     http3 = "http2.0"
 
 
-type HttpProxy = Optional[str]
+type HttpProxy = str | None
 
 
 class UserAgentPreset(Enum):
@@ -63,6 +63,15 @@ class OutputConfig(TypedDict):
     output_options: OutputOptions
     output_file: str
     output_dir: str
+
+
+type YamlValue = str | int | float | bool | None | Sequence[YamlValue] | YamlDict
+
+
+type YamlDict = Dict[str, YamlValue]
+
+
+
 
 def read_config(config_path: Path) -> dict:
     with config_path.open() as f:

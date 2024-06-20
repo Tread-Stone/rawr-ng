@@ -9,23 +9,22 @@ enumeration:
     get_robots: False # Option to perform a request to get the robots.txt file
     get_crossdomain: False # Option to perform a request to get the crossdomain.xml file
 requests:
-    http_version: 1.1 # HTTP version to use
+    http_version: "1.1" # HTTP version to use
     proxy: None # Proxy to use
     user_agent_preset: Firefox # User agent to use
 crawl:
-    max_num_subdomains: None # Maximum number of subdomains to crawl
+    max_num_subdomains: 9 # Maximum number of subdomains to crawl
     max_num_pages: 300 # Maximum number of pages to crawl
     max_depth: 3 # Maximum depth to crawl
     timeout: 180 # Timeout for requests (seconds)
     mirror: False # Option to mirror the crawl for onto the resulting sites discovered during the crawl
-    alternate_domains: [] # Alternate domains to crawl to find more sites
+    # alternate_domains: [] # Alternate domains to crawl to find more sites
     blacklist: False # Option to invert alternate_domains to a blacklist i.e. all sites except those in alternate_domains
 output:
-    output_dir: /path/to/output # Directory to output results
+    path: /path/to/output # Directory to output results
+    format: csv # Format of output
     show_all: False # Option to show all ports in the CSV output
     show_default_passwords: False # Option to show default passwords
-    quiet: False # Option to suppress terminal output
-    verbose: False # Option to increase terminal output
     report_title: Example Report # Title of the report
     report_logo_path: /path/to/logo.png # Path to the logo to use in the report
 
