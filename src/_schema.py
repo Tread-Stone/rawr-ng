@@ -1,8 +1,9 @@
 from pathlib import Path
-from schema import Schema, Optional, Or
+from schema import Schema, Optional, SchemaError
 from yaml import safe_load as yaml_load
+from typing import Dict, Sequence
 
-ConfigSchema = Schema({
+RawrNGSchema = Schema({
     "input": {
         "path": str,
         "type": str
@@ -40,10 +41,29 @@ ConfigSchema = Schema({
 })
 
 
-def read_config(config_path: Path) -> dict:
-    with config_path.open() as f:
-        return yaml_load(f)
+type YamlValue = str | int | float | bool | None | Sequence[YamlValue] | YamlDict
+"""Recursive type definition for YAML values. Can be any primitive type, a list of YAML values (of any of these types, including another yaml dictionary), or a dictionary of YAML values (of any of these types)."""
 
-if __name__ == "__main__":
-    ConfigSchema.validate(read_config(Path("rawr_example_config.yaml")))
+
+type YamlDict = Dict[str, YamlValue]
+"""Recursive type definition for YAML dictionaries. A dictionary of YAML values (of any of these types)."""
+
+
+def read_config(config_path: Path | str) -> YamlDict:
+    """Read and validate the configuration file.
+
+    Args:
+        config_path (Path | str): The path to the configuration file.
+
+    Returns:
+        dict: The validated configuration dictionary.
+    """
+    # Open the configuration file as text, so we can parse and validate it.
+    with open(config_path) as file:
+        try:
+            # Load the file as from a yaml to a dictionary and validate its contents.
+            return RawrNGSchema.validate(yaml_load(file))
+        except SchemaError as e:
+            # If the schema checker raises an error, re-raise it as a ValueError.
+            raise ValueError("Invalid configuration file") from e
 

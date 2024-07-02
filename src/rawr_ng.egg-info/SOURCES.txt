@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-src/__init__.py
-src/logger.py
-src/parser.py
-src/rawr_ng.egg-info/PKG-INFO
-src/rawr_ng.egg-info/SOURCES.txt
-src/rawr_ng.egg-info/dependency_links.txt
-src/rawr_ng.egg-info/top_level.txt
