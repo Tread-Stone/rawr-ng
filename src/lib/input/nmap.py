@@ -1,11 +1,14 @@
 from pathlib import Path
+import re
 
 def parse_nmap(nmap_file: Path):
-    file = open(nmap_file, "r")
-    body = file.read().split("\n")
-    print(body)
-    line = file.readline().strip()
-    print(line)
+    # Compile the regex pattern for numbers 1-9 at the start of the line
+    pattern = re.compile(r"^\s*[1-9]")
+
+    with open(nmap_file, "r") as file:
+        for line in file:
+            if pattern.match(line):
+                print(line.strip())
 
 if __name__ == "__main__":
-    parse_nmap(Path("nmap_file.txt"))
+    parse_nmap(Path("example.txt"))

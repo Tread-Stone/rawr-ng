@@ -4,7 +4,7 @@ Host is up (0.024s latency).
 Not shown: 995 filtered tcp ports (no-response)
 PORT     STATE SERVICE  VERSION
 53/tcp   open  domain   Unbound
-| dns-nsid: 
+| dns-nsid:
 |   NSID: 185m9 (3138356d39)
 |_  id.server: CMH
 80/tcp   open  http     Cloudflare http proxy
