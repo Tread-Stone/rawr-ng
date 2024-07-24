@@ -17,8 +17,6 @@ def _main():
 
     enumeration_options |= EnumerationOptions.no_rdp
 
-    print({**enumeration_options})
-
 def _run(**args):
     pass
 
