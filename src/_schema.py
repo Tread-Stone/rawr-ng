@@ -2,6 +2,7 @@ from pathlib import Path
 from schema import Schema, Optional, SchemaError
 from yaml import safe_load as yaml_load
 from typing import Dict, Sequence
+from enum import Flag, auto
 
 RawrNGSchema = Schema({
     "input": {
@@ -66,4 +67,31 @@ def read_config(config_path: Path | str) -> YamlDict:
         except SchemaError as e:
             # If the schema checker raises an error, re-raise it as a ValueError.
             raise ValueError("Invalid configuration file") from e
+
+
+class EnumerationOptions(Flag):
+    no_rdp = auto()
+    no_vnc = auto()
+    dns_dig = auto()
+    get_options = auto()
+    get_robots = auto()
+    get_crossdomain = auto()
+
+    @classmethod
+    def from_dict(cls, options: YamlDict) -> 'EnumerationOptions':
+        """Create an EnumerationOptions object from a dictionary.
+
+        Args:
+            options (YamlDict): The dictionary of enumeration options.
+
+        Returns:
+            EnumerationOptions: The enumeration options object.
+        """
+        # Initialize the enumeration options object.
+        enum_options = cls(0)
+        # Iterate over the options and set the corresponding flags.
+        for option, value in options.items():
+            if value:
+                enum_options |= cls[option]
+        return enum_options
 
